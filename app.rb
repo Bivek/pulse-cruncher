@@ -31,12 +31,14 @@ class App
         create_record(task_info, dat['scroll']) unless dat['scroll'].nil?
         create_record(task_info, dat['mouseclick'], 1) unless dat['mouseclick'].nil?
       end
+
+      puts 'Done. Now you can start crunching by firing command App.start_crunching'
     end
   end
 
   def self.start_crunching
     file_name = "sb_#{Time.now.strftime("%Y-%m-%d_%H:%M:%S")}.json"
-    task_ids = Sb.select('distinct task_id').pluck(:task_id)
+    task_ids = Sb.select('distinct task_id').group(:task_id).pluck(:task_id)
     task_ids.each do |task_id|
       print '.'
       SidekiqWorkers::Ds.perform_async(task_id: task_id, file_name: file_name)
