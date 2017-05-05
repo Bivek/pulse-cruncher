@@ -31,9 +31,9 @@ class App
         create_record(task_info, dat['scroll']) unless dat['scroll'].nil?
         create_record(task_info, dat['mouseclick'], 1) unless dat['mouseclick'].nil?
       end
-
-      puts 'Done. Now you can start crunching by firing command App.start_crunching'
     end
+    puts '.'
+    puts 'Done. Now you can start crunching by firing command App.start_crunching'
   end
 
   def self.start_crunching
