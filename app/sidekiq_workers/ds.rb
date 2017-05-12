@@ -4,9 +4,11 @@ module SidekiqWorkers
   class Ds < SidekiqWorkers::Base
     sidekiq_options :queue => :ds, :retry => 3, :backtrace =>true
 
-    KEY_CODES = {'0' => 'MOUSE', '8' => 'BS','9' => 'TAB','13' =>  'ENTER','16' =>  'SHIFT','17' =>  'CTRL','18' =>  'ALT','19' =>  'PAUSE','20' =>  'CAPS','27' =>  'ESC','32' =>  'SPACE','33' =>  'PAGE_UP','34' =>  'PAGE_DOWN','35' =>  'END','36' =>  'HOME','37' =>  'ARROW','38' =>  'ARROW','39' =>  'ARROW','40' =>  'ARROW','45' =>  'INSERT','46' =>  'DELETE','48' =>  'NUM_ROW','49' =>  'NUM_ROW','50' =>  'NUM_ROW','51' =>  'NUM_ROW','52' =>  'NUM_ROW','53' =>  'NUM_ROW','54' =>  'NUM_ROW','55' =>  'NUM_ROW','56' =>  'NUM_ROW','57' =>  'NUM_ROW','65' =>  'ALPHA','66' =>  'ALPHA','67' =>  'ALPHA','68' =>  'ALPHA','69' =>  'ALPHA','70' =>  'ALPHA','71' =>  'ALPHA','72' =>  'ALPHA','73' =>  'ALPHA','74' =>  'ALPHA','75' =>  'ALPHA','76' =>  'ALPHA','77' =>  'ALPHA','78' =>  'ALPHA','79' =>  'ALPHA','80' =>  'ALPHA','81' =>  'ALPHA','82' =>  'ALPHA','83' =>  'ALPHA','84' =>  'ALPHA','85' =>  'ALPHA','86' =>  'ALPHA','87' =>  'ALPHA','88' =>  'ALPHA','89' =>  'ALPHA','90' =>  'ALPHA','91' =>  'WIN_LEFT','92' =>  'WIN_RIGHT','93' =>  'SEL','96' =>  'NUM_PAD','97' =>  'NUM_PAD','98' =>  'NUM_PAD','99' =>  'NUM_PAD','100' => 'NUM_PAD','101' => 'NUM_PAD','102' => 'NUM_PAD','103' => 'NUM_PAD','104' => 'NUM_PAD','105' => 'NUM_PAD','106' => 'NUM_PAD_SYMBOL_MUL','107' => 'NUM_PAD_SYMBOL_ADD','109' => 'NUM_PAD_SYMBOL_SUB','110' => 'NUM_PAD_SYMBOL_POINT','111' => 'NUM_PAD_SYMBOL_DIV','112' => 'FUNCTION','113' => 'FUNCTION','114' => 'FUNCTION','115' => 'FUNCTION','116' => 'FUNCTION','117' => 'FUNCTION','118' => 'FUNCTION','119' => 'FUNCTION','120' => 'FUNCTION','121' => 'FUNCTION','122' => 'FUNCTION','123' => 'FUNCTION','144' => 'NUM_LOCK','145' => 'SCROLL_LOCK','186' => 'SYMBOL_SEMI_COLON','187' => 'SYMBOL_EQL','188' => 'SYMBOL_COMMA','189' => 'SYMBOL_SUB','190' => 'SYMBOL_POINT','191' => 'SYMBOL_FORWARD_SLASH','192' => 'SYMBOL_GRAVE_ACCENT','219' => 'SYMBOL_SQUARE_BRACKET_OPEN','220' => 'SYMBOL_BACKWARD_SLASH','221' => 'SYMBOL_SQUARE_BRACKET_CLOSE','222' => 'SYMBOL_QUOTE_SINGLE'}
+
+    KEY_CODES = {'0' => 'MOUSE_CLICK', '1' => 'MOUSE_SCROLL', '2' => 'MOUSE_MOVE', '8' => 'BS','9' => 'TAB','13' =>  'ENTER','16' =>  'SHIFT','17' =>  'CTRL','18' =>  'ALT','19' =>  'PAUSE','20' =>  'CAPS','27' =>  'ESC','32' =>  'SPACE','33' =>  'PAGE_UP','34' =>  'PAGE_DOWN','35' =>  'END','36' =>  'HOME','37' =>  'ARROW','38' =>  'ARROW','39' =>  'ARROW','40' =>  'ARROW','45' =>  'INSERT','46' =>  'DELETE','48' =>  'NUM_ROW','49' =>  'NUM_ROW','50' =>  'NUM_ROW','51' =>  'NUM_ROW','52' =>  'NUM_ROW','53' =>  'NUM_ROW','54' =>  'NUM_ROW','55' =>  'NUM_ROW','56' =>  'NUM_ROW','57' =>  'NUM_ROW','65' =>  'ALPHA','66' =>  'ALPHA','67' =>  'ALPHA','68' =>  'ALPHA','69' =>  'ALPHA','70' =>  'ALPHA','71' =>  'ALPHA','72' =>  'ALPHA','73' =>  'ALPHA','74' =>  'ALPHA','75' =>  'ALPHA','76' =>  'ALPHA','77' =>  'ALPHA','78' =>  'ALPHA','79' =>  'ALPHA','80' =>  'ALPHA','81' =>  'ALPHA','82' =>  'ALPHA','83' =>  'ALPHA','84' =>  'ALPHA','85' =>  'ALPHA','86' =>  'ALPHA','87' =>  'ALPHA','88' =>  'ALPHA','89' =>  'ALPHA','90' =>  'ALPHA','91' =>  'WIN_LEFT','92' =>  'WIN_RIGHT','93' =>  'SEL','96' =>  'NUM_PAD','97' =>  'NUM_PAD','98' =>  'NUM_PAD','99' =>  'NUM_PAD','100' => 'NUM_PAD','101' => 'NUM_PAD','102' => 'NUM_PAD','103' => 'NUM_PAD','104' => 'NUM_PAD','105' => 'NUM_PAD','106' => 'NUM_PAD_SYMBOL_MUL','107' => 'NUM_PAD_SYMBOL_ADD','109' => 'NUM_PAD_SYMBOL_SUB','110' => 'NUM_PAD_SYMBOL_POINT','111' => 'NUM_PAD_SYMBOL_DIV','112' => 'FUNCTION','113' => 'FUNCTION','114' => 'FUNCTION','115' => 'FUNCTION','116' => 'FUNCTION','117' => 'FUNCTION','118' => 'FUNCTION','119' => 'FUNCTION','120' => 'FUNCTION','121' => 'FUNCTION','122' => 'FUNCTION','123' => 'FUNCTION','144' => 'NUM_LOCK','145' => 'SCROLL_LOCK','186' => 'SYMBOL_SEMI_COLON','187' => 'SYMBOL_EQL','188' => 'SYMBOL_COMMA','189' => 'SYMBOL_SUB','190' => 'SYMBOL_POINT','191' => 'SYMBOL_FORWARD_SLASH','192' => 'SYMBOL_GRAVE_ACCENT','219' => 'SYMBOL_SQUARE_BRACKET_OPEN','220' => 'SYMBOL_BACKWARD_SLASH','221' => 'SYMBOL_SQUARE_BRACKET_CLOSE','222' => 'SYMBOL_QUOTE_SINGLE'}
     ARROWS = [37, 38, 39 ,40]
-    MOUSE = [0]
+    MOUSE_CLICK = [0]
+    ALL_MOUSE = [0,1,2]
     DE = (48..105).to_a + [186, 188, 189, 190, 191, 192, 222]
     TAB = [9]
     CTR = [17]
@@ -23,7 +25,7 @@ module SidekiqWorkers
       observed_total_duration_with_regards_to_first_event = sbs.last.timestamp - sbs.first.timestamp
       observed_totoal_duration_with_regards_to_first_data_entry_initiation = (sbs.last.timestamp - data_entries.first.timestamp) rescue observed_total_duration_with_regards_to_first_event
       no_of_key_press_wrt_de = data_entries.count
-      no_of_mouse_click = sbs.select{|s| s.code == 0 }.count
+      no_of_mouse_click = sbs.select{|s| MOUSE_CLICK.include?(s.code) }.count
       total_distance_moved = sbs.sum(:distance)
       no_of_backspace_pressed = sbs.select{|s| s.code == 8 }.count
       started_at = sbs.first.timestamp
@@ -56,7 +58,7 @@ module SidekiqWorkers
           end
           # keyboard and mouse switch
           unless index == 0
-             no_keyboard_and_mouse_switch += 1 if s.code == 0 && sbs[index - 1].code !=0
+             no_keyboard_and_mouse_switch += 1 if ALL_MOUSE.include?(s.code) && !ALL_MOUSE.include?(sbs[index - 1].code)
           end
           # activity pattern
           unless index == 0

@@ -27,9 +27,9 @@ class App
       dat = datum['data']
       ActiveRecord::Base.transaction do
         create_record(task_info, dat['keyCodes']) unless dat['keyCodes'].nil?
-        create_record(task_info, dat['mousemove']) unless dat['mousemove'].nil?
-        create_record(task_info, dat['scroll']) unless dat['scroll'].nil?
-        create_record(task_info, dat['mouseclick'], 1) unless dat['mouseclick'].nil?
+        create_record(task_info, dat['mousemove'], 2) unless dat['mousemove'].nil?
+        create_record(task_info, dat['scroll'], 1) unless dat['scroll'].nil?
+        create_record(task_info, dat['mouseclick'], 0, 1) unless dat['mouseclick'].nil?
       end
     end
     puts '.'
@@ -98,12 +98,12 @@ class App
 
   private
 
-  def self.create_record(task_info, data, button=nil)
+  def self.create_record(task_info, data, code=nil, button=nil)
     data.each do |datum|
       Sb.create!(
         assignment_score: task_info['assignment_score'],
         button: button || datum['button'],
-        code: datum['code'],
+        code: code || datum['code'],
         distance: datum['distance'],
         skill_score: task_info['skill_score'],
         task_id: task_info['task_id'],
